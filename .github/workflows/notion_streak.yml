@@ -1,0 +1,28 @@
+name: Notion Streak Tracker
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 毎日0時UTC（日本時間9:00）
+  workflow_dispatch:     # 手動実行もできるように
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run streak tracker
+        run: node index.js
+        env:
+          NOTION_KEY: ${{ secrets.NOTION_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          STREAK_PAGE_ID: ${{ secrets.STREAK_PAGE_ID }}
