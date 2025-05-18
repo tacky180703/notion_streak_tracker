@@ -15,7 +15,7 @@ async function checkTodayIdeas() {
     filter: {
       property: '作成日時',
       date: {
-        equals: today,
+        equals: yesterday,
       },
     },
   });
